@@ -69,6 +69,31 @@ Now, we're finally ready to create a new concept. This might be a 1-concept proj
   * This works because the current regex in `social_support.py` is looking for the word 'concept' (line 26) and 'concept' shows up in the text of `test_social_support.py` on line 11.
 
 
-## Creating a New Concept (Building)
+## Creating a New Concept (Text Snippets)
+
+As interesting as that all is, we still haven't yet gotten started with our NLP. We may have already collected examplars or have a list of keywords to look through. We could just include these keywords in our regular expression (instead of the word 'concept'), but these terms may sometimes be relevant and at other times not-relevant.
+
+In our case, let's suppose we have a starting list of keywords and want to look at the words in context to ensure they are capturing what we expect. Let's build up a command to run `src\get_text_snippets.py`.
+
+* We want to use the corpus file in `sample/corpus.csv`
+* We want to create a new output directory called `out` in the present directory
+* We want to look for two regex groups
+  * SUPPORT: any mention of 'support'
+  * COMPANION: any mention of a friend, family member, etc.
+
+* `src\get_text_snippets.py --input-files sample/corpus.csv --outdir out --regexes SUPPORT==support\w* 'COMPANION==(friend|family|son|daughter)'`
+* `code out/snippets_20...csv`
+  * The output filename will have a timestamp
+  * You may want to open in another editor (e.g., Excel)
+  * It shows terms with +/- 50 characters the matched term
+
+* TODO
+
+
+## Creating a New Concept (Writing Regexes)
+
+* TODO
+
+## Extracting Concepts
 
 * TODO
