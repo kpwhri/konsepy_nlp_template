@@ -14,6 +14,8 @@ Negation is not currently supported at the regular expression level, so if negat
 
 ## Getting Started
 
+For a complete example, see [this step-by-step walkthrough](doco/SOCIAL_SUPPORT_DEMO.md).
+
 ### Prerequisites
 
 * Python 3.9+
@@ -43,7 +45,7 @@ Negation is not currently supported at the regular expression level, so if negat
   * We will call `$PROJECT_PATH` the path `$PATH/$PROJECT_NAME` (e.g., C:\code\cough_nlp)
 * Rename the directory in $PATH to from `konsepy_nlp_template` to $PROJECT_NAME
 * Rename the directory in $PROJECT_PATH/src from `example_nlp` to $PROJECT_NAME
-* Open $PROJECT_PATH/config.py and replace `example_nlp` with $PROJECT_NAME
+* Open $PROJECT_PATH/src/config.py and replace `example_nlp` with $PROJECT_NAME
 
 ### Running on Command Line
 
