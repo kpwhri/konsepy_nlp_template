@@ -45,6 +45,7 @@ Now we need to rename the `example_nlp` portions inside the project itself:
   * Install requirements
 * `$env:PYTHONPATH='C:\code\social_support_nlp\src'`
   * Add to PYTHONPATH
+* Also, if you're not sure what a command/file requires, you can find documentation by running `python command.py -h` to print the help menu/usage
 
 ## Creating a New Concept (Setup)
 
@@ -78,6 +79,8 @@ In our case, let's suppose we have a starting list of keywords and want to look 
 * We want to use the corpus file in `sample/corpus.csv`
 * We want to create a new output directory called `out` in the present directory
 * We want to look for two regex groups
+  * The syntax for including these is 'GROUPNAME==regular-expression-pattern'
+    * Quotation marks may be required depending on the symbols used
   * SUPPORT: any mention of 'support'
   * COMPANION: any mention of a friend, family member, etc.
 
@@ -87,13 +90,72 @@ In our case, let's suppose we have a starting list of keywords and want to look 
   * You may want to open in another editor (e.g., Excel)
   * It shows terms with +/- 50 characters the matched term
 
-* TODO
-
-
 ## Creating a New Concept (Writing Regexes)
 
-* TODO
+
+* Looking at these examples, looking for just 'social support' might pick up positive or negative social support.
+* Let's open up our `social_support.py` and `test_social_support.py` files.
+  * In `test_social_support.py`, I'll replace the example text in line 11 with a few examples:
+```python
+# replace lines 10-14 with:
+@pytest.mark.parametrize('text, exp', [
+    ('good social support', SocialSupportCategory.POSITIVE),
+    ('limited social support', SocialSupportCategory.NEGATIVE),
+    ('missing social support', SocialSupportCategory.NEGATIVE),
+    # add more tests
+])
+```
+* Re-running our tests, we'll see that they fail (which is what we expect: we haven't yet written the regular expression patterns).
+  * `pytest tests`
+  * NB: the error has to do with not finding `POSITIVE` or `NEGATIVE`, since `SocialSupportCategory` doesn't have these elements. Let's go fix that.
+* In `social_support.py`, 
+  * add the POSITIVE and NEGATIVE categories to `SocialSupportCategory` line 22-3:
+```python
+class SocialSupportCategory(enum.Enum):
+    """Start from 1; each must be distinct; use CAPITAL_LETTERS_WITH_UNDERSCORE is possible"""
+    POSITIVE = 1  # like 'good social support'
+    NEGATIVE = 2  # like 'limited social support'
+```
+  * add some positive and negative regexes (around lines 26-8)
+```python
+REGEXES = [
+    (re.compile(r'\b(?:good|strong)\s*(?:social\s*support)\b', re.I), SocialSupportCategory.POSITIVE),
+    (re.compile(r'\b(?:missing|limited|lack\s*of)\s*(?:social\s*support)\b', re.I), SocialSupportCategory.NEGATIVE),
+]
+```
+  * we can also reformat these so that we can re-use the repeated regular expression values (e.g., of 'social support')
+```python
+social_support = r'(?:social\s*support)'
+REGEXES = [
+    (re.compile(fr'\b(?:good|strong)\s*{social_support}\b', re.I), SocialSupportCategory.POSITIVE),
+    (re.compile(fr'\b(?:missing|limited|lack\s*of)\s*{social_support}\b', re.I), SocialSupportCategory.NEGATIVE),
+]
+```
+  * We do this in case we want to change this to expand the regex to include 'social' and 'family':
+    * `r'(?:(?:social|family)\s*support)`
+
+* Re-run `pytest tests`
+  * Note how all of the tests have now passed (`3 passed in 0.11s`)
+
+* Repeat building tests and making them pass until you're ready to run the algorithm.
+
 
 ## Extracting Concepts
 
-* TODO
+Now, we've finished this concept, how can we run this across our corpus of `sample/corpus.csv`?
+
+Let's use the `src/run_all.py` program to run all of the concepts we have built:
+
+* `python .\src\run_all.py --input-files sample/corpus.csv --outdir out`
+  * This code will automatically find and run all of your concepts on the specified input files
+
+Let's explore the output:
+* `cd out/run_all_20...`
+  * Navigate to the specified output directory (we specified `out`)
+  * Here, we find 4 files:
+    * `category_counts.csv`: how many times each of our categories appeared in the notes
+    * `mrn_cateegory_counts.csv`: how many times each of the categories occurred per studyid
+    * `notes_category_counts.csv`: how many times each of the categories occurred per note
+    * `run_all_20....log`: the associated log file
+
+These files can be merged with the corpus and read by structured data processes to do various analyses.
