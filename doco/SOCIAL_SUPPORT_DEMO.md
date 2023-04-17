@@ -159,3 +159,15 @@ Let's explore the output:
     * `run_all_20....log`: the associated log file
 
 These files can be merged with the corpus and read by structured data processes to do various analyses.
+
+### Alternatives
+
+If you only want to look at output for a single concept, you can use the `src/run_concept.py` command.
+
+* Ensure that you are in $PROJECT_PATH (we `cd`'d above)
+* 
+
+
+## Extracting Tags for Training Neural Nets
+
+* TODO

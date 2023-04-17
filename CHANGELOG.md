@@ -21,3 +21,7 @@ Types of changes:
 
 * `this`
 * demo on developing simple NLP for social support
+
+### Fixed
+
+* Bug in `run_concepts` which supplied `package_name` parameter twice
