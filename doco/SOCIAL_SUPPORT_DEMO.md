@@ -165,9 +165,17 @@ These files can be merged with the corpus and read by structured data processes 
 If you only want to look at output for a single concept, you can use the `src/run_concept.py` command.
 
 * Ensure that you are in $PROJECT_PATH (we `cd`'d above)
-* 
+* `python .\src\run_concept.py --concepts social_support --input-files sample/corpus.csv --outdir out`
+  * Runs only the concept `social_support`
+    * The name of the concept is the name of the file, minus the `.py` extension
+    * `social_support.py` has the concept `social_support`
+
+To run multiple concepts, you can specify each one with the `--concepts` flag. Suppose we also had a file of concepts called `src/social_support_nlp/concepts/social_isolation.py`, the concept name would be `social_isolation`. We could run both concepts together using either the `run_all.py` or `run_concept.py` and specify multiple concepts:
+* `python .\src\run_concept.py --concepts social_support social_isolation --input-files sample/corpus.csv --outdir out`
 
 
-## Extracting Tags for Training Neural Nets
+## Extracting Tags for Training BERT
+
+This framework has largely been constructed to allow the simple augmentation of the manually-crafted NLP algorithm with a BERT model.
 
 * TODO
