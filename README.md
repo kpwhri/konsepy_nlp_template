@@ -36,6 +36,8 @@ For a complete example, see [this step-by-step walkthrough](doco/SOCIAL_SUPPORT_
     * `note_id`: (required) note-level identifier; unique identifier for each note
     * `note_text`: (required) text associated with each note
     * `note_date`: (optional) date of note; not used by algorithm so probably easiest to ignore
+    * `note_line`: (optional) if note broken into multiple segments (see example in `sample/corpus_lined.csv`), specify this to join them
+      * If using `note_line`, all portions of the note are assumed to appear together in the dataset (i.e., order by `note_id, note_line`)
     * corpus may contain other columns which will be ignored
 
 ### Setup
@@ -87,7 +89,13 @@ To find example text (text 'snippets'), you can use the `$PROJECT_PATH/src/get_t
 Usage:
 ```bash
 # get text snippets when the letters 'cough' appear in corpus.csv and output to the directory `out`
-python src/get_text_snippets.py --input-files corpus.csv --outdir out --regexes COUGH==cough
+python src/get_text_snippets.py --input-files sample/corpus.csv --outdir out --regexes COUGH==cough
+```
+
+Or, for a lined corpus:
+```bash
+# get text snippets when the letters 'cough' appear in corpus.csv and output to the directory `out`
+python src/get_text_snippets.py --input-files sample/corpus_lined.csv --outdir out --regexes COUGH==cough --noteorder-label note_line
 ```
 
 ### Running Code Against a Corpus
@@ -96,8 +104,14 @@ Once the regular expressions have been built and tested, the next step is runnin
 
 Usage:
 ```bash
-python src/run_all.py --input-files corpus.csv --outdir out
+python src/run_all.py --input-files sample/corpus.csv --outdir out
 ```
+
+Or, for a lined corpus:
+```bash
+python src/run_all.py --input-files sample/corpus_lined.csv --outdir out --noteorder-label note_line
+```
+
 
 ## Roadmap
 
