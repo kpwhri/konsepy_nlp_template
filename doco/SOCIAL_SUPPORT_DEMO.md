@@ -41,6 +41,7 @@ Now we need to rename the `example_nlp` portions inside the project itself:
   * Create virtual environment
 * `.venv\scripts\activate.ps1`
   * Activate virtual environment
+  * If you receive an error about not being able to run scripts on your system (i.e., restrictive execution policy), try running: `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted -Force`
 * `pip install -r requirements.txt`
   * Install requirements
 * `$env:PYTHONPATH='C:\code\social_support_nlp\src'`
