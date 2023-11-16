@@ -22,6 +22,7 @@ Types of changes:
 * `this`
 * demo on developing simple NLP for social support
 * `corpus_lined.csv` with README explaining the examples
+* Added new option for running all concepts while excluding aggregate output
 
 ### Fixed
 
