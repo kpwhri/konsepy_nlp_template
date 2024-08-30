@@ -3,6 +3,8 @@
 
 This is a step-by-step demonstration of how to use the Konsepy NLP Template looking at the concept `SOCIAL_SUPPORT`.
 
+IMPORTANT: Most of this documentation is primarily for BUILDING an algorithm, NOT for running it. For help running, see the `README.md` file, or jump down to [extracting concepts, below](#extracting-concepts). 
+
 These will show the command line arguments and reasoning I walk though, using Powershell on Windows (though these same steps should work for any OS, though syntax might be slightly different).
 
 ## Initial Setup
