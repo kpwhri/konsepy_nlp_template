@@ -110,6 +110,12 @@ Usage:
 python src/run_all.py --input-files sample/corpus.csv --outdir out
 ```
 
+For running against a specific concept (nb: the name of the concept is the name of the file in `src/example_nlp/concepts`, so `src/example_nlp/concepts/asthma.py` has a concept name of `asthma`):
+
+```bash
+python src/run_concept.py --input-files sample/corpus.csv --outdir out --concept asthma
+```
+
 Or, for a lined corpus:
 ```bash
 python src/run_all.py --input-files sample/corpus_lined.csv --outdir out --noteorder-label note_line
