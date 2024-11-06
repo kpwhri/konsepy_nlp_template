@@ -27,3 +27,7 @@ Types of changes:
 ### Fixed
 
 * Bug in `run_concepts` which supplied `package_name` parameter twice
+
+### Changed
+
+* Update to meet requirements of `konsepy 0.1.0`

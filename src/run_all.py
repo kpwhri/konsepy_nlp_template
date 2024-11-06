@@ -6,7 +6,7 @@ Usage:
 """
 from pathlib import Path
 
-from konsepy.cli import add_outdir_and_infiles, add_run_all_args
+from konsepy.cli import add_outdir_and_infiles, add_run_all_args, parse_and_clean_args
 from konsepy.run_all import run_all
 
 from config import PACKAGE_NAME
@@ -28,4 +28,4 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(fromfile_prefix_chars='@!')
     add_outdir_and_infiles(parser)
     add_run_all_args(parser)
-    run_all_concepts(**vars(parser.parse_args()))
+    run_all_concepts(**parse_and_clean_args(parser))

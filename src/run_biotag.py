@@ -3,7 +3,7 @@ Create training data file for training neural network on concept output.
 
 """
 from konsepy.bio_tag import get_bio_tags
-from konsepy.cli import add_outdir_and_infiles
+from konsepy.cli import add_outdir_and_infiles, parse_and_clean_args
 
 from config import PACKAGE_NAME
 
@@ -13,4 +13,4 @@ def run_biotag(input_files, outdir, **kwargs):
 
 
 if __name__ == '__main__':
-    run_biotag(**vars(add_outdir_and_infiles().parse_args()))
+    run_biotag(**parse_and_clean_args(add_outdir_and_infiles()))
