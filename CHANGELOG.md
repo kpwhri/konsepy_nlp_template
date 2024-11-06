@@ -1,4 +1,5 @@
 # Changelog
+
 All notable changes to this project will _likely_ be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -17,6 +18,8 @@ Types of changes:
 
 ## [Unreleased]
 
+## [0.1.0]
+
 ### Added
 
 * `this`
@@ -31,3 +34,7 @@ Types of changes:
 ### Changed
 
 * Update to meet requirements of `konsepy 0.1.0`
+
+[unreleased]: https://github.com/kpwhri/konsepy_nlp_template/compare/0.1.0...HEAD
+
+[0.1.0]: https://github.com/kpwhri/konsepy_nlp_template/releases/0.1.0
