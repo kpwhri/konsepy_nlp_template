@@ -18,6 +18,10 @@ Types of changes:
 
 ## [Unreleased]
 
+### Added
+
+* Incorporating `run4snippets` into the template
+
 ## [0.1.0]
 
 ### Added
