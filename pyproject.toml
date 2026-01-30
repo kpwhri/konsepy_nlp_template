@@ -4,7 +4,7 @@ version = "0.3.0"
 description = "Project template for running konsepy NLP."
 requires-python = ">=3.10"
 dependencies = [
-    "konsepy>=0.3.0",
+    "konsepy>=0.3.2",
 ]
 
 [dependency-groups]
