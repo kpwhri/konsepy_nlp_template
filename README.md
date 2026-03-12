@@ -105,6 +105,8 @@ python src/get_text_snippets.py --input-files sample/corpus_lined.csv --outdir o
 
 Once the regular expressions have been built and tested, the next step is running them against the corpus. The corpus can be `csv`, `jsonl`, or `sas7bdat` -- just specify the file with the appropriate extension and it will be automatically read.
 
+N.b., to use the example corpus, you'll need to add `--notetext-label note_text`.
+
 Usage:
 ```bash
 python src/run_all.py --input-files sample/corpus.csv --outdir out
@@ -121,6 +123,11 @@ Or, for a lined corpus (i.e., where a note is spread across multiple lines):
 python src/run_all.py --input-files sample/corpus_lined.csv --outdir out --noteorder-label note_line
 ```
 
+Or, if you need to extract matches from a corpus, use `run_all_matches`. This is the best entry point for extracting values from a corpus.
+
+```bash
+python src/run_all_matches.py --input-files sample/corpus.csv --outdir out
+```
 
 ## Roadmap
 
