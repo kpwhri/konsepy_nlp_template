@@ -13,9 +13,8 @@ Steps for creating a new category:
 """
 import enum
 import re
-
-from konsepy.rxsearch import search_all_regex_func
 from konsepy.context.negation import check_if_negated
+from konsepy.rxsearch import search_all_regex
 
 
 class ConceptCategory(enum.Enum):  # TODO: change 'Concept' to relevant concept name
@@ -26,12 +25,24 @@ class ConceptCategory(enum.Enum):  # TODO: change 'Concept' to relevant concept 
 
 
 REGEXES = [
-  (re.compile(r'\bconcept\b', re.I),
-   ConceptCategory.CONCEPT_NAME,
-   [  # list of functions
-     lambda **kwargs: check_if_negated(neg_concept=ConceptCategory.NEGATED, **kwargs),
-   ]
-   ),
+    # simplest approach: if concept matches, return concept
+    (re.compile(r'\bconcept\b', re.I), ConceptCategory.CONCEPT_NAME),
 ]
 
-RUN_REGEXES_FUNC = search_all_regex_func(REGEXES)
+
+REGEXES = [
+    # more complex options for preprocessor/postprocessor
+    (re.compile(r'\bconcept\b', re.I),
+     ConceptCategory.CONCEPT_NAME,
+     [  # (optional) list of postprocessor functions
+         lambda **kwargs: check_if_negated(neg_concept=ConceptCategory.NEGATED, **kwargs),
+     ],
+     [
+         # (optional) list of preprocessor functions (these should return indices [or None if text is to be skipped])
+         # these will determine whether or not a text should be processed (default: process all) or which portion
+         #      of the text should be processed
+     ],
+     ),
+]
+
+RUN_REGEXES_FUNC = search_all_regex(REGEXES)

@@ -18,12 +18,21 @@ Types of changes:
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-05-13
+
+### Added
+
+* Added extraction example for extracting, e.g., scores
+
+### Changed
+
+* Updated for `konsepy=0.5.0`
+
 ## [0.4.0] - 2026-03-11
 
 ### Added
 
 * Interface for `run_all_matches` with doco
-
 
 ## [0.3.0] - 2026-01-30
 
@@ -53,7 +62,9 @@ Types of changes:
 
 * Update to meet requirements of `konsepy 0.1.0`
 
-[unreleased]: https://github.com/kpwhri/konsepy_nlp_template/compare/v0.4.0...HEAD
+[unreleased]: https://github.com/kpwhri/konsepy_nlp_template/compare/v0.5.0...HEAD
+
+[0.5.0]: https://github.com/kpwhri/konsepy_nlp_template/compare/v0.4.0...v.0.5.0
 
 [0.4.0]: https://github.com/kpwhri/konsepy_nlp_template/compare/0.3.0...v0.4.0
 

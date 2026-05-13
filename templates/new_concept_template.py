@@ -14,12 +14,7 @@ Steps for creating a new category:
 import enum
 import re
 
-from konsepy.rxsearch import (
-    search_first_regex,
-    search_all_regex,
-    search_and_replace_regex_func,
-    search_all_regex_func,
-)
+from konsepy.rxsearch import search_first_regex, search_all_regex
 from konsepy.context.negation import check_if_negated
 from konsepy.context.other_subject import check_if_other_subject
 
@@ -31,41 +26,54 @@ class ConceptCategory(enum.Enum):  # TODO: change 'Concept' to relevant concept 
     OTHER = 3
 
 
+# Example custom preprocessor function, in this case, just naively get the first sentence
+def first_sentence_only(text):
+    end = text.find('.')
+    if end == -1:
+        yield 0, len(text)
+        return
+    yield 0, end
+
+
+# Example custom postprocessor functions (i.e., after regex is found)
+def has_exclusion(precontext, postcontext, **kwargs):
+    if 'old' in precontext or 'young' in postcontext:
+        return ConceptCategory.NEGATED  # change the concept to this instead
+    return None  # keep default concept
+
+
+# naive negation
+def skip_if_negated(*, precontext, **_):
+    from rxsearch import SKIP
+    if 'no ' in precontext.lower() or 'not ' in precontext.lower():
+        return SKIP  # don't include this in the output
+    return None  # keep default concept
+
+
 # Basic form of REGEX:
 REGEXES = [
     (re.compile(r'\bconcept\b', re.I), ConceptCategory.CONCEPT_NAME),  # TODO: replace this example
     # Here's a more powerful form where the 3rd element list will be used to `check`
     #  the context of the match to ensure it is relevant. Here, we are ensuring that
     #  the match is not negated, and not related to non-subject (e.g., reference to uncle, etc.)
-  (re.compile(r'\bconcept\b', re.I),
-   ConceptCategory.CONCEPT_NAME,
-   [  # list of functions
-     lambda **kwargs: check_if_negated(neg_concept=ConceptCategory.NEGATED, **kwargs),
-     lambda **kwargs: check_if_other_subject(other_concept=ConceptCategory.OTHER, **kwargs),
-   ]
-   ),
+    (re.compile(r'\bconcept\b', re.I),
+     ConceptCategory.CONCEPT_NAME,
+     [  # list of postprocessor functions
+         lambda **kwargs: check_if_negated(neg_concept=ConceptCategory.NEGATED, **kwargs),
+         lambda **kwargs: check_if_other_subject(other_concept=ConceptCategory.OTHER, **kwargs),
+     ],
+     [  # list of preprocessor functions
+         first_sentence_only,
+     ],
+     ),
 ]
 
-# to write your own function to be passed inside the function list, it shoud have the form:
-def has_exclusion(precontext, postcontext, **kwargs):
-    if 'old' in precontext or 'young' in postcontext:
-        return ConceptCategory.NEGATED  # change the concept to this instead
-    return None  # keep default concept
-
 # TODO: keep only one of the following lines (or the last will prevail)
-# If you're unsure, use `search_all_regex_func`
-
-# Basic
 # find only first occurrence of each regex
 RUN_REGEXES_FUNC = search_first_regex(REGEXES)
 # find all occurrences of all regexes
 RUN_REGEXES_FUNC = search_all_regex(REGEXES)
 
-# More advanced (though powerful)
-# Prevents double-matching by replacing found text with dots before proceeding to the next regex
-RUN_REGEXES_FUNC = search_and_replace_regex_func(REGEXES)
-# Same as search_all, but supports "sentinel" values (None) to stop processing if a match was found earlier
-RUN_REGEXES_FUNC = search_all_regex_func(REGEXES)
 
 # You can write a custom function, in this form:
 def my_custom_search(regexes):
@@ -73,4 +81,5 @@ def my_custom_search(regexes):
         for regex, category, *other in regexes:
             for m in regex.finditer(text):
                 yield (category, m) if include_match else category
+
     return _search
