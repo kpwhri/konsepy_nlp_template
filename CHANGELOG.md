@@ -18,9 +18,23 @@ Types of changes:
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-03-11
+
 ### Added
 
+* Interface for `run_all_matches` with doco
+
+
+## [0.3.0] - 2026-01-30
+
+### Added
+
+* More documentation, `pyproject.toml`
 * Incorporating `run4snippets` into the template
+
+### Changed
+
+* Updated compatibility to version 0.3.0 of `konsepy`
 
 ## [0.1.0]
 
@@ -39,6 +53,10 @@ Types of changes:
 
 * Update to meet requirements of `konsepy 0.1.0`
 
-[unreleased]: https://github.com/kpwhri/konsepy_nlp_template/compare/0.1.0...HEAD
+[unreleased]: https://github.com/kpwhri/konsepy_nlp_template/compare/v0.4.0...HEAD
+
+[0.4.0]: https://github.com/kpwhri/konsepy_nlp_template/compare/0.3.0...v0.4.0
+
+[0.3.0]: https://github.com/kpwhri/konsepy_nlp_template/compare/0.1.0...v0.3.0
 
 [0.1.0]: https://github.com/kpwhri/konsepy_nlp_template/releases/0.1.0
