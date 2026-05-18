@@ -20,12 +20,18 @@ import re
 
 from konsepy.rxsearch import extract_all_regex_target
 
+class ScoreCategory(enum.Enum):
+    SCORE = 1
+
 REGEXES = [
     (
         # (?P<target>\d+) means: capture one or more digits and name that captured value 'target'
         # extract_all_regex_target() looks for this "target" group by default
+        # Arg0: Regular expression to search for
         re.compile(r'\bscore\s*:\s*(?P<target>\d+)\b', re.I),
-        None,  # default category if no match (required)
+        ScoreCategory.SCORE,  # Arg1: Category to output results/scores for
+        # Arg2: any postprocessors (apply on the extracted result)
+        # Arg3: any preprocessors (apply before running regex, e.g., to exclude a piece of text)
     ),
 ]
 

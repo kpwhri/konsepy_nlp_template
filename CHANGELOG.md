@@ -18,6 +18,15 @@ Types of changes:
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-05-18
+
+### Changed
+
+* Update konsepy requirement for 0.5.8 (fixed extraction outputs)
+* Updated extraction template to show how to specify output column for value
+* Added documnetation for create/train/predict workflow
+* Added `predict_bio_dataset` to enable prediction from a trained model
+
 ## [0.5.0] - 2026-05-13
 
 ### Added
