@@ -71,7 +71,9 @@ Types of changes:
 
 * Update to meet requirements of `konsepy 0.1.0`
 
-[unreleased]: https://github.com/kpwhri/konsepy_nlp_template/compare/v0.5.0...HEAD
+[unreleased]: https://github.com/kpwhri/konsepy_nlp_template/compare/v0.5.1...HEAD
+
+[0.5.1]: https://github.com/kpwhri/konsepy_nlp_template/compare/v0.5.0...v0.5.1
 
 [0.5.0]: https://github.com/kpwhri/konsepy_nlp_template/compare/v0.4.0...v.0.5.0
 
